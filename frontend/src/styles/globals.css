@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom Properties ─────────────────────────────────────────────────── */
+:root {
+  --color-cream: #f5f0e8;
+  --color-cream-dark: #e8e0d0;
+  --color-green: #2d5a27;
+  --color-forest: #1b4332;
+  --color-gold: #c9a84c;
+  --color-charcoal: #1a1a1a;
+  --nav-height: 80px;
+  --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Global Keyframes (used by inline styles & Tailwind) ───────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Jost', system-ui, sans-serif;
+  font-weight: 300;
+  background-color: var(--color-charcoal);
+  color: var(--color-cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background: var(--color-gold);
+  color: var(--color-charcoal);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-charcoal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 2px;
+}
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+/* ─── Focus Styles (Accessibility) ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Image ──────────────────────────────────────────────────────────────── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ─── Canvas Overflow Fix ────────────────────────────────────────────────── */
+canvas {
+  display: block;
+  touch-action: none;
+}
+
+/* ─── Utility Classes ────────────────────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Film grain overlay */
+  .grain-overlay::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9998;
+    mix-blend-mode: overlay;
+  }
+
+  /* Gradient text */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #c9a84c 0%, #e8c96c 50%, #c9a84c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-green {
+    background: linear-gradient(135deg, #52b788 0%, #74c69d 50%, #52b788 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ─── Component Base Styles ──────────────────────────────────────────────── */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-8 py-3 
+           bg-verdara-gold text-verdara-charcoal font-body font-normal 
+           text-xs tracking-[0.2em] uppercase
+           transition-all duration-400 ease-expo-out
+           hover:bg-verdara-gold-light hover:scale-[1.02]
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-verdara-gold;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-8 py-3 
+           border border-current text-verdara-cream font-body font-light 
+           text-xs tracking-[0.2em] uppercase
+           transition-all duration-400 ease-expo-out
+           hover:bg-verdara-cream hover:text-verdara-charcoal hover:scale-[1.02]
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-verdara-gold;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 text-verdara-cream font-body font-light 
+           text-xs tracking-[0.2em] uppercase
+           transition-all duration-300 ease-expo-out
+           hover:text-verdara-gold;
+  }
+
+  .section-label {
+    @apply text-xs tracking-[0.3em] uppercase font-body font-light text-verdara-gold;
+  }
+
+  .section-heading {
+    @apply font-display text-verdara-cream;
+  }
+
+  .card-glow {
+    box-shadow: 0 0 60px rgba(201, 168, 76, 0.08);
+  }
+
+  /* Verdara horizontal rule */
+  .vr-rule {
+    @apply h-px bg-gradient-to-r from-transparent via-verdara-gold/30 to-transparent;
+  }
+}
+
+/* ─── Lenis Scroll ───────────────────────────────────────────────────────── */
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ─── Reduced Motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
