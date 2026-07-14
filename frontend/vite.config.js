@@ -23,7 +23,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'https://verdara-organic-perfumes.onrender.com',
         changeOrigin: true,
       },
     },
