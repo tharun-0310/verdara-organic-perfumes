@@ -16,8 +16,8 @@ app.use(
 
 // ─── CORS ───────────────────────────────────────────────────────────────────
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
-  'http://localhost:3000','https://verdara-organic-perfumes.onrender.com'
+  process.env.CLIENT_URL ||'https://verdara-organic-perfumes-git-master-tharun-ss-projects-b57a7e69.vercel.app','http://localhost:5173',
+  'http://localhost:3000',
 ];
 
 app.use(
